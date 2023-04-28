@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocis
+spec:
+  template:
+    spec:
+      containers:
+        - name: ocis
+          env:
+            - name: IDM_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: idm
+                  name: password
+

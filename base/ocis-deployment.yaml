@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ocis
+  name: ocis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ocis
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - args:
+            - -c
+            - ocis init || true; ocis server
+          command:
+            - /bin/sh
+          env:
+            - name: IDM_CREATE_DEMO_USERS
+              value: "false"
+            - name: NOTIFICATIONS_SMTP_HOST
+              value: smtp.example.com
+            - name: NOTIFICATIONS_SMTP_INSECURE
+              value: "false"
+            - name: NOTIFICATIONS_SMTP_PORT
+              value: "465"
+            - name: NOTIFICATIONS_SMTP_SENDER
+              value: oCIS notifications <notifications@ocis.example.com>
+            - name: NOTIFICATIONS_SMTP_USERNAME
+              value: me@example.com
+            - name: OCIS_INSECURE
+              value: "false"
+            - name: OCIS_LOG_COLOR
+              value: "false"
+            - name: OCIS_LOG_LEVEL
+              value: info
+            - name: OCIS_URL
+              value: https://ocis.example.com
+            - name: PROXY_ENABLE_BASIC_AUTH
+              value: "false"
+            - name: PROXY_TLS
+              value: "false"
+          image: owncloud/ocis:2.0.0
+          name: ocis
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/ocis
+              name: ocis-config
+            - mountPath: /var/lib/ocis
+              name: ocis-data
+      restartPolicy: Always
+      volumes:
+        - name: ocis-config
+          persistentVolumeClaim:
+            claimName: ocis-config
+        - name: ocis-data
+          persistentVolumeClaim:
+            claimName: ocis-data
+status: {}

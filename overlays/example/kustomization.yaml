@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+transformers:
+  - transformer.yaml
+
+resources:
+  - ../../base
+
+patchesStrategicMerge:
+  - example-env.yaml
+
+images:
+- name: owncloud/ocis
+  newName: owncloud/ocis
+  newTag: 2.0.0

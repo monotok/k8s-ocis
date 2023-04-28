@@ -1,0 +1,9 @@
+apiVersion: builtin
+kind: AnnotationsTransformer
+metadata:
+  name: annotation_transformer
+annotations:
+  kubernetes.io/change-cause: 2.0.0
+fieldSpecs:
+- path: metadata/annotations
+  create: true
