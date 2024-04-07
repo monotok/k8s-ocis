@@ -13,4 +13,4 @@ patchesStrategicMerge:
 images:
 - name: owncloud/ocis
   newName: owncloud/ocis
-  newTag: 2.0.0
+  newTag: 5.0.0

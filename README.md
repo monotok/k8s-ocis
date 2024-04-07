@@ -5,7 +5,6 @@ A collection of kubectl yaml files to deploy ocis onto kubernetes. Customisation
 # Requirements
 
 - Kustomize
-- Redis
 - Kubernetes Cluster (I'd recommend RKE2 from Rancher)
 
 These are not necessary but useful if you want to store your data outside the cluster.
@@ -23,15 +22,16 @@ Then running a command via it:
 
 `docker run k8s.gcr.io/kustomize/kustomize:v3.8.7 version`
 
-## Redis
-
-You will also need a redis database. For something similar to the database operator above you could use [spotahomes operator](https://github.com/spotahome/redis-operator). I just needed a single redis pod so I went for the [bitnami redis chart](https://github.com/bitnami/charts/tree/main/bitnami/redis/#installing-the-chart).
-
-
 # Install/Deployment
 
 Copy the example overlays folder so you can customise to your liking. I have provided examples of changing the most common things,
 but you can change most parts via kustomize.
+
+Example Values:
+
+**OCIS_OIDC_ISSUER**:
+
+`https://keycloak_url/realms/home`
 
 ## Via kubectl
 

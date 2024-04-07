@@ -13,4 +13,8 @@ spec:
                 secretKeyRef:
                   key: idm
                   name: password
-
+            - name: OCIS_OIDC_ISSUER
+              valueFrom:
+                secretKeyRef:
+                  key: oidc_url
+                  name: oidc_data
